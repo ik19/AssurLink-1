@@ -50,7 +50,7 @@ class User
     private $lastname;
 
     /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Zone", cascade={"persist"})
      */
     private $zone;
 
