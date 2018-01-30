@@ -42,6 +42,27 @@ class Device
      */
     private $alert;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $User;
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->User;
+    }
+
+    /**
+     * @param User $User
+     */
+    public function setUser(User $User)
+    {
+        $this->User = $User;
+    }
 
     /**
      * Get id

@@ -49,6 +49,26 @@ class User
      */
     private $lastname;
 
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User", cascade={"persist"})
+     */
+    private $zone;
+
+    /**
+     * @return Zone
+     */
+    public function getZone()
+    {
+        return $this->zone;
+    }
+
+    /**
+     * @param mixed $zone
+     */
+    public function setZone(Zone $zone = null)
+    {
+        $this->zone = $zone;
+    }
 
     /**
      * Get id
