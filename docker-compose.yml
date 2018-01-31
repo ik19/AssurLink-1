@@ -7,8 +7,8 @@ services:
             MYSQL_USER: root
             MYSQL_DATABASE: "assur_link"
         volumes:
-            - mysql_data:/var/lib/mysql
-            - ./docker/fixtures/:/docker-entrypoint-initdb.d:ro
+            - mysql_data_link:/var/lib/mysql
+            - ./site/fixtures/:/docker-entrypoint-initdb.d:ro
 
     php:
         build: ./docker/php-fpm
@@ -39,6 +39,6 @@ services:
           ports:
               - 8081:8080
 volumes:
-  mysql_data: {}
+  mysql_data_link: {}
  
 

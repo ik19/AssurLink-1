@@ -3,7 +3,6 @@ SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
-DROP TABLE IF EXISTS `device`;
 CREATE TABLE `device` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -46,7 +45,7 @@ CREATE TABLE `scene` (
 
 INSERT INTO `scene` (`id`, `type`, `message`) VALUES
 (1,	'Orange',	'fermer la porte'),
-(2,	'Rouge',	'coupe Electricité '),
+(2,	'Rouge',	'coupe Electricitï¿½ '),
 (3,	'Vert',	'Aucun danger ');
 
 DROP TABLE IF EXISTS `user`;
