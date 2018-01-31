@@ -35,6 +35,11 @@ class Zone
      */
     private $position;
 
+    /** ONE-TO-MANY BIDIRECTIONAL, INVERSE SIDE
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\User", mappedBy="zone")
+     */
+    protected $user;
 
     /**
      * Get id
@@ -93,5 +98,35 @@ class Zone
     {
         return $this->position;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->user = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Add user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return Zone
+     */
+    public function addUser(\AppBundle\Entity\User $user)
+    {
+        $this->user[] = $user;
+
+        return $this;
+    }
+
+    /**
+     * Remove user
+     *
+     * @param \AppBundle\Entity\User $user
+     */
+    public function removeUser(\AppBundle\Entity\User $user)
+    {
+        $this->user->removeElement($user);
+    }
+}

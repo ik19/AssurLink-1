@@ -49,26 +49,12 @@ class User
      */
     private $lastname;
 
-    /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Zone", cascade={"persist"})
+    /** MANY-TO-ONE BIDIRECTIONAL, OWNING SIDE
+     * @var Zone
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Zone", inversedBy="user")
+     * @ORM\JoinColumn(name="zone_id", referencedColumnName="id")
      */
     private $zone;
-
-    /**
-     * @return Zone
-     */
-    public function getZone()
-    {
-        return $this->zone;
-    }
-
-    /**
-     * @param mixed $zone
-     */
-    public function setZone(Zone $zone = null)
-    {
-        $this->zone = $zone;
-    }
 
     /**
      * Get id

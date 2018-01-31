@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="DeviceScene")
+ * @ORM\Table(name="device_scene")
  */
 class DeviceScene
 {
@@ -44,6 +44,12 @@ class DeviceScene
      * @ORM\JoinColumn(nullable=false)
      */
     private $scene;
+
+    public function __construct()
+    {
+        $this->created_at = new \DateTime();
+        $this->update_at  = new \DateTime();
+    }
 
     /**
      * @return mixed

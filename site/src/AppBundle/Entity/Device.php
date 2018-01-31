@@ -24,45 +24,9 @@ class Device
     /**
      * @var string
      *
-     * @ORM\Column(name="macAdresse", type="string", length=255)
-     */
-    private $macAdresse;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="alert", type="boolean")
-     */
-    private $alert;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $User;
-
-    /**
-     * @return User
-     */
-    public function getUser()
-    {
-        return $this->User;
-    }
-
-    /**
-     * @param User $User
-     */
-    public function setUser(User $User)
-    {
-        $this->User = $User;
-    }
 
     /**
      * Get id
@@ -72,30 +36,6 @@ class Device
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set macAdresse
-     *
-     * @param string $macAdresse
-     *
-     * @return Device
-     */
-    public function setMacAdresse($macAdresse)
-    {
-        $this->macAdresse = $macAdresse;
-
-        return $this;
-    }
-
-    /**
-     * Get macAdresse
-     *
-     * @return string
-     */
-    public function getMacAdresse()
-    {
-        return $this->macAdresse;
     }
 
     /**
