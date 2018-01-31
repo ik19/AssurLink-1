@@ -8,6 +8,7 @@ services:
             MYSQL_DATABASE: "assur_link"
         volumes:
             - mysql_data:/var/lib/mysql
+            - ./docker/fixtures/:/docker-entrypoint-initdb.d:ro
 
     php:
         build: ./docker/php-fpm
