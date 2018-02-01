@@ -29,7 +29,7 @@ class UserDevice
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Device")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Device", cascade={"all"}, fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
     private $device;
@@ -54,10 +54,107 @@ class UserDevice
      */
     private $macAdresse;
 
+
     public function __construct()
     {
         $this->alert = false;
-        $this->created_at = new \DateTime();
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param mixed $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDevice()
+    {
+        return $this->device;
+    }
+
+    /**
+     * @param mixed $device
+     */
+    public function setDevice($device)
+    {
+        $this->device = $device;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAlert(): bool
+    {
+        return $this->alert;
+    }
+
+    /**
+     * @param bool $alert
+     */
+    public function setAlert(bool $alert)
+    {
+        $this->alert = $alert;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMacAdresse(): string
+    {
+        return $this->macAdresse;
+    }
+
+    /**
+     * @param string $macAdresse
+     */
+    public function setMacAdresse(string $macAdresse)
+    {
+        $this->macAdresse = $macAdresse;
     }
 
 
