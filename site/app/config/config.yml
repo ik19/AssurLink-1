@@ -78,6 +78,7 @@ nelmio_cors:
             allow_methods: ['POST', 'GET']
             max_age: 3600
 
+
 fos_rest:
     routing_loader:
         include_format: false

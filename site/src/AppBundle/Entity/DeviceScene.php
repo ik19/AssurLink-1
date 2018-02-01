@@ -40,7 +40,7 @@ class DeviceScene
     private $device;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Scene")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Scene", cascade={"all"}, fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
     private $scene;

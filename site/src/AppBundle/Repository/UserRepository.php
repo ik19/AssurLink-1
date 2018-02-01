@@ -10,4 +10,39 @@ namespace AppBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function getUserWithZone(int $id)
+    {
+        $qb = $this->createQueryBuilder('u');
+
+        // On fait une jointure avec l'entité Category avec pour alias « c »
+        $qb
+            ->innerJoin('u.zone', 'z')
+            ->addSelect('z');
+        $qb->where('z.id = :id')
+            ->setParameter('id', $id);
+        // Puis on filtre sur le nom des catégories à l'aide d'un IN
+
+        // Enfin, on retourne le résultat
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getUserAndZone(int $id)
+    {
+        $qb = $this->createQueryBuilder('u');
+
+        // On fait une jointure avec l'entité Category avec pour alias « c »
+        $qb
+            ->innerJoin('u.zone', 'z')
+            ->addSelect('z');
+        $qb->where('u.id = :id')
+            ->setParameter('id', $id);
+
+        // Enfin, on retourne le résultat
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
 }

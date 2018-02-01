@@ -9,36 +9,69 @@
 namespace AppBundle\Controller;
 
 
-use AppBundle\Entity\User;
+use AppBundle\Entity\UserDevice;
+use FOS\RestBundle\FOSRestBundle;
+use FOS\RestBundle\Controller\Annotations\Route;
+
+
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\View;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 use FOS\RestBundle\Controller\Annotations as Rest; // alias pour toutes les annotations
 
-
-class APIController extends Controller
+class APIController extends FOSRestBundle
 {
     /**
-     * @Rest\View()
-     * @Rest\Post("/user")
+     * @Route("/zone", name="zone", methods={"GET"})
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function getUserAction(Request $request)
+    public function testAction(Request $request)
     {
-        $login = $request->request->get('login');
-        $password = $request->request->get('password');
 
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $userRepository = $em->getRepository('AppBundle:User');
+        $deviceRep = $em->getRepository('AppBundle:Device');
+        //$zoneRepository = $em->getRepository('AppBundle:Zone');
+        //$zone = $zoneRepository->find(2);
+        $users = $userRepository->getUserWithZone(2);
+        $device = [];
+        foreach ($users as $user)
+        {
+            $device[] = $em->getRepository('AppBundle:UserDevice')->findBy(array("user" => $user));
+        }
+        dump("tous les utilisateur de la zone",$users);
+        dump("tous les devise d'un user par zone",$device);die();
+        $data =  $this->container->get('serializer')->serialize($userRepository->find(1), 'json');
 
-        $logger = $this->container->get('logger');
-        $places = $this->container->get('doctrine.orm.entity_manager')
-            ->getRepository('AppBundle:User')
-            ->findByLogin($login);
+        return new JsonResponse(array('object' => $data ));
+    }
 
-        $logger->info($request->request->get($places));
-        return $places;
+    /**
+     * @Rest\View()
+     * @Rest\Get("/user")
+     */
+    public function userAction()
+    {
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $userRepository = $em->getRepository('AppBundle:User');
+        $user = $userRepository->getUserAndZone(1);
+        $devices = $em->getRepository('AppBundle:UserDevice')->findBy(array("user" => $user));
+        /** @var UserDevice $device */
+        $deviceScene = [];
+        foreach ($devices as $device)
+        {
+           $deviceScene[] = $em->getRepository('AppBundle:DeviceScene')->findBy(array("device" => $device->getDevice()));
+        }
+        $data = array($user, $devices, $deviceScene);
+        //dump($user, $devices, $deviceScene); die();
+        //$dataUser =  $this->container->get('serializer')->serialize($user, 'json');
+       // $dataDevise =  $this->container->get('serializer')->serialize($devices, 'json');
+       // $dataScene =  $this->container->get('serializer')->serialize($deviceScene, 'json');
+
+        return $data;
     }
 }

@@ -2,11 +2,12 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Zone
- *
+ *@property ArrayCollection user
  * @ORM\Table(name="zone")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ZoneRepository")
  */
@@ -35,11 +36,14 @@ class Zone
      */
     private $position;
 
-    /** ONE-TO-MANY BIDIRECTIONAL, INVERSE SIDE
-     * @var Collection
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\User", mappedBy="zone")
+
+    /**
+     * Constructor
      */
-    protected $user;
+    public function __construct()
+    {
+        $this->user = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -79,14 +83,10 @@ class Zone
      * Set position
      *
      * @param array $position
-     *
-     * @return Zone
      */
     public function setPosition($position)
     {
         $this->position = $position;
-
-        return $this;
     }
 
     /**
@@ -97,13 +97,6 @@ class Zone
     public function getPosition()
     {
         return $this->position;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->user = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

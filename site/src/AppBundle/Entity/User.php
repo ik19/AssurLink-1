@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * User
- *
+ *@property ArrayCollection zone
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
@@ -49,9 +49,8 @@ class User
      */
     private $lastname;
 
-    /** MANY-TO-ONE BIDIRECTIONAL, OWNING SIDE
-     * @var Zone
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Zone", inversedBy="user")
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Zone")
      * @ORM\JoinColumn(name="zone_id", referencedColumnName="id")
      */
     private $zone;
@@ -160,6 +159,22 @@ class User
     public function getLastname()
     {
         return $this->lastname;
+    }
+
+    /**
+     * @return Zone
+     */
+    public function getZone()
+    {
+        return $this->zone;
+    }
+
+    /**
+     * @param Zone $zone
+     */
+    public function setZone(Zone $zone)
+    {
+        $this->zone = $zone;
     }
 }
 
