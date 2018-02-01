@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\View;
 
+use FOS\RestBundle\Controller\Annotations as Rest; // alias pour toutes les annotations
 
 class APIController extends FOSRestBundle
 {
@@ -50,8 +51,8 @@ class APIController extends FOSRestBundle
     }
 
     /**
-     * @return JsonResponse
-     * @Route("/user", name="user", methods={"GET"})
+     * @Rest\View()
+     * @Rest\Get("/user")
      */
     public function userAction()
     {
@@ -65,11 +66,12 @@ class APIController extends FOSRestBundle
         {
            $deviceScene[] = $em->getRepository('AppBundle:DeviceScene')->findBy(array("device" => $device->getDevice()));
         }
+        $data = array($user, $devices, $deviceScene);
         //dump($user, $devices, $deviceScene); die();
-        $dataUser =  $this->container->get('serializer')->serialize($user, 'json');
+        //$dataUser =  $this->container->get('serializer')->serialize($user, 'json');
        // $dataDevise =  $this->container->get('serializer')->serialize($devices, 'json');
        // $dataScene =  $this->container->get('serializer')->serialize($deviceScene, 'json');
 
-        return new JsonResponse(array('User' => $dataUser));
+        return $data;
     }
 }
