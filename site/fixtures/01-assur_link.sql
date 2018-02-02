@@ -1,8 +1,10 @@
+
 SET NAMES utf8;
 SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
+DROP TABLE IF EXISTS `device`;
 CREATE TABLE `device` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -45,7 +47,7 @@ CREATE TABLE `scene` (
 
 INSERT INTO `scene` (`id`, `type`, `message`) VALUES
 (1,	'Orange',	'fermer la porte'),
-(2,	'Rouge',	'coupe Electricit� '),
+(2,	'Rouge',	'coupe Electricit'),
 (3,	'Vert',	'Aucun danger ');
 
 DROP TABLE IF EXISTS `user`;
@@ -58,7 +60,7 @@ CREATE TABLE `user` (
   `zone_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_8D93D6499F2C3FAB` (`zone_id`),
-  CONSTRAINT `FK_8D93D6499F2C3FAB` FOREIGN KEY (`zone_id`) REFERENCES `zone` (`id`)
+  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`zone_id`) REFERENCES `zone` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `user` (`id`, `login`, `password`, `firstname`, `lastname`, `zone_id`) VALUES
@@ -90,7 +92,10 @@ INSERT INTO `user_device` (`id`, `device_id`, `user_id`, `created_at`, `alert`, 
 (5,	4,	2,	'2018-01-31',	0,	'51645461'),
 (6,	5,	2,	'2018-01-31',	0,	'5184684'),
 (7,	3,	4,	'2018-01-31',	0,	'265468486'),
-(8,	4,	4,	'2018-01-31',	0,	'213516565');
+(8,	4,	4,	'2018-01-31',	0,	'213516565'),
+(9,	1,	2,	'2018-02-02',	0,	'51654684'),
+(10,	1,	3,	'2018-02-02',	0,	'5126515'),
+(11,	1,	4,	'2018-02-02',	0,	'1565515');
 
 DROP TABLE IF EXISTS `zone`;
 CREATE TABLE `zone` (

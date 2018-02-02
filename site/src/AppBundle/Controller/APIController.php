@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\Device;
 use AppBundle\Entity\User;
 use AppBundle\Entity\UserDevice;
 use FOS\RestBundle\FOSRestBundle;
@@ -100,12 +101,63 @@ class APIController extends FOSRestBundle
         {
            $deviceScene[] = $em->getRepository('AppBundle:DeviceScene')->findBy(array("device" => $device->getDevice()));
         }
-        $data = array($user, $devices, $deviceScene);
+        $data = array('user' => $user,'userDevice'=> $devices,'SceneDevice' => $deviceScene);
         //dump($user, $devices, $deviceScene); die();
-        //$dataUser =  $this->container->get('serializer')->serialize($user, 'json');
-       // $dataDevise =  $this->container->get('serializer')->serialize($devices, 'json');
-       // $dataScene =  $this->container->get('serializer')->serialize($deviceScene, 'json');
 
         return $data;
+    }
+
+    /**
+     * @Rest\View
+     * @Rest\Post("user-all-devices")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function UserAllDevicesAction(Request $request)
+    {
+        $user_id = $request->request->get('user_id');
+
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $userRepository = $em->getRepository('AppBundle:User');
+        $user = $userRepository->getUserAndZone($user_id);
+        $devices = $em->getRepository('AppBundle:UserDevice')->findBy(array("user" => $user));
+        if (empty($devices)) {
+            return new JsonResponse(['message' => 'user by device not found'], Response::HTTP_NOT_FOUND);
+        }
+        return $devices;
+    }
+
+    /**
+     * @param Request $request
+     * @return array|JsonResponse
+     * @Rest\View
+     * @Rest\Post("alarm")
+     */
+    public function setAlarm(Request $request)
+    {
+        $id = $request->request->get('id');
+        $alarm = $request->get("alarm");
+
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $device = $em->getRepository('AppBundle:UserDevice')->find($id);
+
+        if (empty($device)) {
+            return new JsonResponse(['message' => 'user device not found'], Response::HTTP_NOT_FOUND);
+        }
+        /** @var UserDevice $device */
+        $this->startOtherDevice($device->getDevice(), (int)$alarm);
+        $em->flush();
+        return array( 'message' => 'alarm active');
+    }
+
+    private function startOtherDevice(Device $device, int $alarm)
+    {
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $devices = $em->getRepository('AppBundle:UserDevice')->findBy(array('device' => $device));
+        foreach ($devices as $device)
+        {
+            /** @var UserDevice $device */
+            $device->setAlert($alarm);
+        }
     }
 }

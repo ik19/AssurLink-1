@@ -61,29 +61,5 @@ class Device
     {
         return $this->name;
     }
-
-    /**
-     * Set alert
-     *
-     * @param boolean $alert
-     *
-     * @return Device
-     */
-    public function setAlert($alert)
-    {
-        $this->alert = $alert;
-
-        return $this;
-    }
-
-    /**
-     * Get alert
-     *
-     * @return bool
-     */
-    public function getAlert()
-    {
-        return $this->alert;
-    }
 }
 
