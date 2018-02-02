@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\User;
 use AppBundle\Entity\UserDevice;
 use FOS\RestBundle\FOSRestBundle;
 use FOS\RestBundle\Controller\Annotations\Route;
@@ -24,6 +25,39 @@ use FOS\RestBundle\Controller\Annotations as Rest; // alias pour toutes les anno
 
 class APIController extends FOSRestBundle
 {
+    /**
+     * @Rest\View()
+     * @Rest\Post("/userInfo")
+     *
+     * @param Request $request
+     * @return User
+     *
+     */
+    public function getUserAction(Request $request)
+    {
+        $logger = $this->container->get('logger');
+        $login = $request->request->get('login');
+        $password = $request->request->get('password');
+
+        if (empty($login) || empty($password)){
+            return new JsonResponse(['message' => 'parameters missing'], Response::HTTP_NOT_FOUND);
+        }
+
+        $user = $this->container->get('doctrine.orm.entity_manager')
+            ->getRepository('AppBundle:User')
+            ->getUser($login, $password);
+
+        if (empty($user)) {
+            return new JsonResponse(['message' => 'user not found'], Response::HTTP_NOT_FOUND);
+        }
+        return $user;
+    }
+
+
+    //todo controlleur qui récupére l'alerte du boitier avec l'id de l'objet connecté
+    //fait passé à true tous les UserDevice
+    //envoie les scenarios à tous les user qui on l'objet
+
     /**
      * @Route("/zone", name="zone", methods={"GET"})
      * @param Request $request
@@ -43,8 +77,8 @@ class APIController extends FOSRestBundle
         {
             $device[] = $em->getRepository('AppBundle:UserDevice')->findBy(array("user" => $user));
         }
-        dump("tous les utilisateur de la zone",$users);
-        dump("tous les devise d'un user par zone",$device);die();
+        /*dump("tous les utilisateur de la zone",$users);
+        dump("tous les devise d'un user par zone",$device);die();*/
         $data =  $this->container->get('serializer')->serialize($userRepository->find(1), 'json');
 
         return new JsonResponse(array('object' => $data ));

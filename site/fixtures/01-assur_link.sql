@@ -10,7 +10,7 @@ CREATE TABLE `device` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `device` (`id`, `name`) VALUES
-(1,	'disque'),
+(1,	'alarme'),
 (2,	'generator'),
 (3,	'iphone'),
 (4,	'smarther'),

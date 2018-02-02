@@ -1,6 +1,8 @@
 <?php
 
 namespace AppBundle\Repository;
+use Doctrine\ORM\Query;
+use Proxies\__CG__\AppBundle\Entity\User;
 
 /**
  * UserRepository
@@ -10,6 +12,20 @@ namespace AppBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getUser($login, $password)
+    {
+        $qb = $this->createQueryBuilder('u');
+
+        $qb->where('u.login = :login')
+            ->setParameter('login', $login)
+            ->andWhere('u.password = :password')
+            ->setParameter('password', $password);
+
+        return $qb
+            ->getQuery()
+            ->getOneOrNullResult();
+
+    }
 
     public function getUserWithZone(int $id)
     {
