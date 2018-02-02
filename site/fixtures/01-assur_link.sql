@@ -13,10 +13,11 @@ CREATE TABLE `device` (
 
 INSERT INTO `device` (`id`, `name`) VALUES
 (1,	'alarme'),
-(2,	'generator'),
-(3,	'iphone'),
-(4,	'smarther'),
-(5,	'tronxy 3D');
+(2,	'détecteur de fumée'),
+(3,	'détecteur de gaz'),
+(4,	'détecteur inondation'),
+(5,	'tronxy 3D')
+;
 
 DROP TABLE IF EXISTS `device_scene`;
 CREATE TABLE `device_scene` (
@@ -33,9 +34,15 @@ CREATE TABLE `device_scene` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `device_scene` (`id`, `device_id`, `scene_id`, `created_at`, `update_at`) VALUES
-(1,	2,	1,	'2018-01-31',	'2018-01-31'),
-(2,	2,	2,	'2018-01-31',	'2018-01-31'),
-(3,	5,	1,	'2018-01-31',	'2018-01-31');
+(1,	1,	1,	'2018-01-31',	'2018-01-31'),
+(2,	1,	2,	'2018-01-31',	'2018-01-31'),
+(3,	1,	6,	'2018-01-31',	'2018-01-31'),
+(4,	3,	3,	'2018-01-31',	'2018-01-31'),
+(5,	3,	4,	'2018-01-31',	'2018-01-31'),
+(6,	3,	7,	'2018-01-31',	'2018-01-31'),
+(7,	4,	5,	'2018-01-31',	'2018-01-31'),
+(8,	4,	6,	'2018-01-31',	'2018-01-31')
+;
 
 DROP TABLE IF EXISTS `scene`;
 CREATE TABLE `scene` (
@@ -47,8 +54,14 @@ CREATE TABLE `scene` (
 
 INSERT INTO `scene` (`id`, `type`, `message`) VALUES
 (1,	'Orange',	'fermer la porte'),
-(2,	'Rouge',	'coupe Electricit'),
-(3,	'Vert',	'Aucun danger ');
+(2,	'Orange',	'fermer toutes les fenetres'),
+(3,	'Rouge',	'dégager tous les matériéls qui peuvent bloqué l accès à la chaudiére '),
+(4,	'Rouge',	'couper le gaz'),
+(5,	'Rouge',	'ranger tout matériel éléctrique au sol'),
+(6,	'Rouge',	'metter tous les meubles en hauteur'),
+(7,	'Orange',	'Vérifiez si tous les voisins sont en sécuritée'),
+(8,	'Vert',	'Aucun danger ')
+;
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
@@ -66,8 +79,9 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `login`, `password`, `firstname`, `lastname`, `zone_id`) VALUES
 (1,	'Kevin',	'root',	'kevin',	'lastname',	1),
 (2,	'mohamad',	'root',	'mohamad',	'lastname',	1),
-(3,	'marc',	'root',	'marc',	'lastname',	2),
-(4,	'nasri',	'root',	'nasri',	'lastname',	2);
+(3,	'marc',	'root',	'marc',	'lastname',	1),
+(4,	'nasri',	'root',	'nasri',	'lastname',	2)
+;
 
 DROP TABLE IF EXISTS `user_device`;
 CREATE TABLE `user_device` (
@@ -86,16 +100,22 @@ CREATE TABLE `user_device` (
 
 INSERT INTO `user_device` (`id`, `device_id`, `user_id`, `created_at`, `alert`, `mac_adresse`) VALUES
 (1,	1,	1,	'2018-01-31',	0,	'351564165'),
-(2,	2,	1,	'2018-01-31',	1,	'584646848'),
-(3,	2,	3,	'2018-01-31',	1,	'3516168461'),
-(4,	4,	3,	'2018-01-31',	0,	'5168465'),
-(5,	4,	2,	'2018-01-31',	0,	'51645461'),
-(6,	5,	2,	'2018-01-31',	0,	'5184684'),
-(7,	3,	4,	'2018-01-31',	0,	'265468486'),
-(8,	4,	4,	'2018-01-31',	0,	'213516565'),
-(9,	1,	2,	'2018-02-02',	0,	'51654684'),
-(10,	1,	3,	'2018-02-02',	0,	'5126515'),
-(11,	1,	4,	'2018-02-02',	0,	'1565515');
+(2,	2,	1,	'2018-01-31',	0,	'584646848'),
+(3,	3,	1,	'2018-01-31',	0,	'584646f848'),
+(4,	2,	3,	'2018-01-31',	0,	'3516e168461'),
+(5,	3,	3,	'2018-01-31',	0,	'3516fe168461'),
+(6,	4,	3,	'2018-01-31',	0,	'51684l6f5'),
+(7,	1,	2,	'2018-01-31',	0,	'516454g61'),
+(8,	2,	2,	'2018-01-31',	0,	'518e4684'),
+(9,	3,	2,	'2018-01-31',	0,	'5z18r4684'),
+(10,	1,	4,	'2018-01-31',	0,	'265r468486'),
+(11,	2,	4,	'2018-01-31',	0,	'213z516565'),
+(12,	3,	4,	'2018-01-31',	0,	'213r516565'),
+(13,	5,	2,	'2018-02-02',	0,	'51654684'),
+(14,	5,	3,	'2018-02-02',	0,	'51v26515'),
+(15,	5,	4,	'2018-02-02',	0,	'156v5515'),
+(16,	1,	3,	'2018-01-31',	0,	'3516z168461')
+;
 
 DROP TABLE IF EXISTS `zone`;
 CREATE TABLE `zone` (

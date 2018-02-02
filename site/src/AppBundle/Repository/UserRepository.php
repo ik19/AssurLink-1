@@ -45,7 +45,7 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
             ->getResult();
     }
 
-    public function getUserAndZone(int $id)
+    public function getUserAndZone($login, $password)
     {
         $qb = $this->createQueryBuilder('u');
 
@@ -53,8 +53,10 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
         $qb
             ->innerJoin('u.zone', 'z')
             ->addSelect('z');
-        $qb->where('u.id = :id')
-            ->setParameter('id', $id);
+        $qb->where('u.login = :login')
+            ->setParameter('login', $login)
+            ->andWhere('u.password = :password')
+            ->setParameter('password', $password);
 
         // Enfin, on retourne le résultat
         return $qb

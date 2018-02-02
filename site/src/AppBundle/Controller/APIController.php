@@ -87,13 +87,26 @@ class APIController extends FOSRestBundle
 
     /**
      * @Rest\View()
-     * @Rest\Get("/user")
+     * @Rest\Post("/user")
      */
-    public function userAction()
+    public function userAction(Request $request)
     {
+        $logger = $this->container->get('logger');
+        $login = $request->request->get('login');
+        $password = $request->request->get('password');
+
+        if (empty($login) || empty($password)){
+            return new JsonResponse(['message' => 'parameters missing'], Response::HTTP_NOT_FOUND);
+        }
+
         $em = $this->container->get('doctrine.orm.entity_manager');
         $userRepository = $em->getRepository('AppBundle:User');
-        $user = $userRepository->getUserAndZone(1);
+        $user = $userRepository->getUserAndZone($login, $password);
+
+        if (empty($user)) {
+            return new JsonResponse(['message' => 'user not found'], Response::HTTP_NOT_FOUND);
+        }
+
         $devices = $em->getRepository('AppBundle:UserDevice')->findBy(array("user" => $user));
         /** @var UserDevice $device */
         $deviceScene = [];
@@ -109,7 +122,7 @@ class APIController extends FOSRestBundle
 
     /**
      * @Rest\View
-     * @Rest\Post("user-all-devices")
+     * @Rest\Post("/user-all-devices")
      * @param Request $request
      * @return JsonResponse
      */
@@ -131,7 +144,7 @@ class APIController extends FOSRestBundle
      * @param Request $request
      * @return array|JsonResponse
      * @Rest\View
-     * @Rest\Post("alarm")
+     * @Rest\Post("/alarm")
      */
     public function setAlarm(Request $request)
     {
