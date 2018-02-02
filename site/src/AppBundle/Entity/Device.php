@@ -33,7 +33,7 @@ class Device
      *
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -43,13 +43,10 @@ class Device
      *
      * @param string $name
      *
-     * @return Device
      */
     public function setName($name)
     {
         $this->name = $name;
-
-        return $this;
     }
 
     /**
@@ -57,7 +54,7 @@ class Device
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }

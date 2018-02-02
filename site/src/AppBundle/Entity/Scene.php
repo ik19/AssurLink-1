@@ -41,23 +41,18 @@ class Scene
      *
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * Set type
      *
      * @param string $type
-     *
-     * @return Scene
      */
-    public function setType($type)
+    public function setType(String $type)
     {
         $this->type = $type;
-
-        return $this;
     }
 
     /**
@@ -65,23 +60,19 @@ class Scene
      *
      * @return string
      */
-    public function getType()
+    public function getType(): String
     {
         return $this->type;
     }
 
     /**
-     * Set message
      *
      * @param string $message
      *
-     * @return Scene
      */
-    public function setMessage($message)
+    public function setMessage(String $message)
     {
         $this->message = $message;
-
-        return $this;
     }
 
     /**
@@ -89,7 +80,7 @@ class Scene
      *
      * @return string
      */
-    public function getMessage()
+    public function getMessage(): String
     {
         return $this->message;
     }

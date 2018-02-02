@@ -60,23 +60,18 @@ class User
      *
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
      * Set login
-     *
      * @param string $login
-     *
-     * @return User
      */
-    public function setLogin($login)
+    public function setLogin(String $login)
     {
         $this->login = $login;
-
-        return $this;
     }
 
     /**
@@ -84,79 +79,57 @@ class User
      *
      * @return string
      */
-    public function getLogin()
+    public function getLogin(): String
     {
         return $this->login;
     }
 
     /**
-     * Set password
-     *
      * @param string $password
-     *
-     * @return User
      */
     public function setPassword($password)
     {
         $this->password = $password;
 
-        return $this;
     }
 
     /**
-     * Get password
-     *
      * @return string
      */
-    public function getPassword()
+    public function getPassword(): String
     {
         return $this->password;
     }
 
     /**
-     * Set firstname
-     *
      * @param string $firstname
-     *
-     * @return User
      */
-    public function setFirstname($firstname)
+    public function setFirstname(String $firstname)
     {
         $this->firstname = $firstname;
-
-        return $this;
     }
 
     /**
-     * Get firstname
-     *
      * @return string
      */
-    public function getFirstname()
+    public function getFirstname(): String
     {
         return $this->firstname;
     }
 
     /**
-     * Set lastname
-     *
      * @param string $lastname
-     *
-     * @return User
      */
-    public function setLastname($lastname)
+    public function setLastname(String $lastname)
     {
         $this->lastname = $lastname;
 
-        return $this;
     }
 
     /**
-     * Get lastname
-     *
      * @return string
      */
-    public function getLastname()
+    public function getLastname() : String
     {
         return $this->lastname;
     }
@@ -164,7 +137,7 @@ class User
     /**
      * @return Zone
      */
-    public function getZone()
+    public function getZone(): Zone
     {
         return $this->zone;
     }
