@@ -46,42 +46,30 @@ class Zone
     }
 
     /**
-     * Get id
-     *
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * Set name
-     *
      * @param string $name
-     *
-     * @return Zone
      */
     public function setName($name)
     {
         $this->name = $name;
-
-        return $this;
     }
 
     /**
-     * Get name
-     *
      * @return string
      */
-    public function getName()
+    public function getName(): String
     {
         return $this->name;
     }
 
     /**
-     * Set position
-     *
      * @param array $position
      */
     public function setPosition($position)
@@ -100,17 +88,11 @@ class Zone
     }
 
     /**
-     * Add user
-     *
      * @param \AppBundle\Entity\User $user
-     *
-     * @return Zone
      */
     public function addUser(\AppBundle\Entity\User $user)
     {
         $this->user[] = $user;
-
-        return $this;
     }
 
     /**

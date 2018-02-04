@@ -52,49 +52,49 @@ class DeviceScene
     }
 
     /**
-     * @return mixed
+     * @return integer
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * @param mixed $id
+     * @param int $id
      */
-    public function setId($id)
+    public function setId(int $id)
     {
         $this->id = $id;
     }
 
     /**
-     * @return mixed
+     * @return \DateTime
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): \DateTime
     {
         return $this->created_at;
     }
 
     /**
-     * @param mixed $created_at
+     * @param \DateTime $created_at
      */
-    public function setCreatedAt($created_at)
+    public function setCreatedAt(\DateTime $created_at)
     {
         $this->created_at = $created_at;
     }
 
     /**
-     * @return mixed
+     * @return \DateTime
      */
-    public function getUpdateAt()
+    public function getUpdateAt(): \DateTime
     {
         return $this->update_at;
     }
 
     /**
-     * @param mixed $update_at
+     * @param  \DateTime $update_at
      */
-    public function setUpdateAt($update_at)
+    public function setUpdateAt(\DateTime $update_at)
     {
         $this->update_at = $update_at;
     }
@@ -102,7 +102,7 @@ class DeviceScene
     /**
      * @return Device
      */
-    public function getDevice()
+    public function getDevice(): Device
     {
         return $this->device;
     }
@@ -118,7 +118,7 @@ class DeviceScene
     /**
      * @return Scene
      */
-    public function getScene()
+    public function getScene(): Scene
     {
         return $this->scene;
     }
@@ -130,7 +130,4 @@ class DeviceScene
     {
         $this->scene = $scene;
     }
-
-
-
 }
