@@ -96,7 +96,9 @@ class APIController extends FOSRestBundle
         $password = $request->request->get('password');
 
         if (empty($login) || empty($password)){
-            return new JsonResponse(['message' => 'parameters missing'], Response::HTTP_NOT_FOUND);
+            return new JsonResponse(['message' => 'parameters missing',
+                                     'error' => true
+            ], Response::HTTP_NOT_FOUND);
         }
 
         $em = $this->container->get('doctrine.orm.entity_manager');
@@ -104,7 +106,9 @@ class APIController extends FOSRestBundle
         $user = $userRepository->getUserAndZone($login, $password);
 
         if (empty($user)) {
-            return new JsonResponse(['message' => 'user not found'], Response::HTTP_NOT_FOUND);
+            return new JsonResponse(['message' => 'user not found',
+                                     'error' => true
+            ], Response::HTTP_NOT_FOUND);
         }
 
         $devices = $em->getRepository('AppBundle:UserDevice')->findBy(array("user" => $user));
@@ -158,7 +162,7 @@ class APIController extends FOSRestBundle
             return new JsonResponse(['message' => 'user device not found'], Response::HTTP_NOT_FOUND);
         }
         /** @var UserDevice $device */
-        $this->startOtherDevice($device->getDevice(), (int)$alarm);
+        $this->startOtherDevice($device->getDevice(), (int) $alarm);
         $em->flush();
         return array( 'message' => 'alarm active');
     }

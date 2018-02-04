@@ -8,14 +8,14 @@ services:
             MYSQL_DATABASE: "assur_link"
         volumes:
             - mysql_data_assur:/var/lib/mysql
-            - ./site/fixtures/:/docker-entrypoint-initdb.d:ro
+            - ./back_api/fixtures/:/docker-entrypoint-initdb.d:ro
 
     php:
         build: ./docker/php-fpm
         expose:
             - 9000
         volumes:
-            - ./site/:/var/www/symfony
+            - ./back_api/:/var/www/symfony
             - ./docker/logs/symfony/:/var/www/symfony/var/logs/
         links:
             - db
